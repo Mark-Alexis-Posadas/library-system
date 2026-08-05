@@ -4,7 +4,7 @@
 
 @section('content') <div class="space-y-6">
 
-        ```
+
         {{-- Page Header --}}
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -140,7 +140,8 @@
 
                                         {{-- Delete --}}
                                         <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                                            onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                            onsubmit="return confirm('Are you sure you want to delete this category?')"
+                                            class="m-0">
                                             @csrf
                                             @method('DELETE')
 
@@ -363,6 +364,6 @@
             openCreateModal();
         @endif
     </script>
-    ```
+
 
 @endsection
