@@ -11,27 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('borrowings', function (Blueprint $table) {
+        Schema::create('fines', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('member_id')
+            $table->foreignId('borrowing_id')
+                ->unique()
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('book_id')
-                ->constrained()
-                ->restrictOnDelete();
+            $table->decimal('amount', 10, 2)->default(0);
 
-            $table->date('borrowed_at');
-            $table->date('due_at');
+            $table->string('reason')->nullable();
 
             $table->enum('status', [
-                'borrowed',
-                'returned',
-                'overdue',
-            ])->default('borrowed');
+                'unpaid',
+                'paid',
+                'waived',
+            ])->default('unpaid');
 
-            $table->text('notes')->nullable();
+            $table->timestamp('paid_at')->nullable();
 
             $table->timestamps();
         });
@@ -42,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('borrowings');
+        Schema::dropIfExists('fines');
     }
 };

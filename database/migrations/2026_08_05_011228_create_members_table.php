@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
+
+            $table->string('member_id')->unique();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+
+            $table->enum('status', [
+                'active',
+                'inactive',
+            ])->default('active');
+
             $table->timestamps();
         });
     }
