@@ -275,88 +275,45 @@
 
 
     {{-- Quick actions --}}
+    {{-- Quick actions --}}
     <div class="mt-6">
-
-        <h3 class="mb-4 text-lg font-semibold">
-            Quick Actions
-        </h3>
-
+        <h3 class="mb-4 text-lg font-semibold">Quick Actions</h3>
 
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
+            {{-- Add Book --}}
             <a href="{{ route('books.create') }}"
                 class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow">
-
-                <div class="mb-3 text-2xl">
-                    📚
-                </div>
-
-                <p class="font-semibold">
-                    Add Book
-                </p>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Add a new book to inventory.
-                </p>
-
+                <div class="mb-3 text-2xl">📚</div>
+                <p class="font-semibold">Add Book</p>
+                <p class="mt-1 text-sm text-gray-500">Add a new book to inventory.</p>
             </a>
 
-
+            {{-- Add Member --}}
             <a href="{{ route('members.create') }}"
                 class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow">
-
-                <div class="mb-3 text-2xl">
-                    👤
-                </div>
-
-                <p class="font-semibold">
-                    Add Member
-                </p>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Register a new library member.
-                </p>
-
+                <div class="mb-3 text-2xl">👤</div>
+                <p class="font-semibold">Add Member</p>
+                <p class="mt-1 text-sm text-gray-500">Register a new library member.</p>
             </a>
 
-
+            {{-- Borrow Book --}}
             <a href="{{ route('borrowings.create') }}"
                 class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow">
-
-                <div class="mb-3 text-2xl">
-                    📖
-                </div>
-
-                <p class="font-semibold">
-                    Borrow Book
-                </p>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Create a new borrowing transaction.
-                </p>
-
+                <div class="mb-3 text-2xl">📖</div>
+                <p class="font-semibold">Borrow Book</p>
+                <p class="mt-1 text-sm text-gray-500">Create a new borrowing transaction.</p>
             </a>
 
-
+            {{-- Return Book --}}
             <a href="{{ route('returns.index') }}"
                 class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow">
-
-                <div class="mb-3 text-2xl">
-                    🔄
-                </div>
-
-                <p class="font-semibold">
-                    Return Book
-                </p>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Process returned library books.
-                </p>
-
+                <div class="mb-3 text-2xl">🔄</div>
+                <p class="font-semibold">Return Book</p>
+                <p class="mt-1 text-sm text-gray-500">Process returned library books.</p>
             </a>
 
         </div>
-
     </div>
 
 @endsection
