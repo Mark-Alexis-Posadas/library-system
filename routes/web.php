@@ -59,8 +59,14 @@ Route::resource('categories', CategoryController::class)
 */
 
 Route::resource('borrowings', BorrowingController::class)
-    ->only(['index', 'create', 'store', 'show']);
-
+    ->only([
+        'index',
+        'store',
+        'edit',
+        'update',
+        'destroy',
+        'show',
+    ]);
 
 /*
 |--------------------------------------------------------------------------

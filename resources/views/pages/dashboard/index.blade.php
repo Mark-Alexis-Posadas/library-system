@@ -298,7 +298,7 @@
             </a>
 
             {{-- Borrow Book --}}
-            <a href="{{ route('borrowings.create') }}"
+            <a href="{{ route('borrowings.index') }}"
                 class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow">
                 <div class="mb-3 text-2xl">📖</div>
                 <p class="font-semibold">Borrow Book</p>

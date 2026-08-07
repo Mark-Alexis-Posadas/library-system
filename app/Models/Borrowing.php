@@ -19,9 +19,9 @@ class Borrowing extends Model
     ];
 
     protected $casts = [
-        'borrowed_at' => 'datetime',
-        'due_at' => 'datetime',
-        'returned_at' => 'datetime',
+        'borrowed_at' => 'date',
+        'due_at' => 'date',
+        'returned_at' => 'date',
         'fine' => 'decimal:2',
     ];
 
