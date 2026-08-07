@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CategoryController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Dashboard
@@ -20,9 +21,6 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard.index');
-})->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
@@ -118,10 +116,19 @@ Route::middleware('guest')->group(function () {
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard.index');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
 
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
+
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('profile.index');
+
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
+        ->name('profile.password');
 });
