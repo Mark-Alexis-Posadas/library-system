@@ -6,55 +6,68 @@
 @section('content')
 
     {{-- Page Header --}}
+
     <div class="mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">
+
+
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
             Settings
         </h2>
 
-        <p class="mt-1 text-sm text-gray-500">
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Manage your library configuration.
         </p>
-    </div>
 
+
+    </div>
 
     {{-- Success Message --}}
     @if (session('success'))
-        <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-            {{ session('success') }}
-        </div>
+        <div
+            class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 dark:border-green-800 dark:bg-green-950/40 dark:text-green-400">
+            {{ session('success') }} </div>
     @endif
-
 
     {{-- Validation Errors --}}
     @if ($errors->any())
-        <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-            <p class="text-sm font-medium text-red-800">
+        <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 dark:border-red-800 dark:bg-red-950/40">
+
+
+            <p class="text-sm font-medium text-red-800 dark:text-red-400">
                 Please fix the following errors:
             </p>
 
-            <ul class="mt-2 list-disc pl-5 text-sm text-red-700">
+            <ul class="mt-2 list-disc pl-5 text-sm text-red-700 dark:text-red-400">
+
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
+
             </ul>
+
         </div>
+
+
     @endif
 
-
     <div class="grid gap-6 lg:grid-cols-3">
+
 
         {{-- Settings Navigation --}}
         <x-ui.card class="sticky top-24 h-fit p-3">
 
-            <a href="#library" class="block rounded-lg bg-indigo-50 px-4 py-3 text-sm font-medium text-indigo-700">
+            <a href="#library"
+                class="block rounded-lg bg-indigo-50 px-4 py-3 text-sm font-medium text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-400">
                 🏛️ Library Information
             </a>
 
-            <a href="#borrowing" class="mt-1 block rounded-lg px-4 py-3 text-sm text-gray-600 hover:bg-gray-50">
+            <a href="#borrowing"
+                class="mt-1 block rounded-lg px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800">
                 📖 Borrowing Rules
             </a>
 
-            <a href="#account" class="mt-1 block rounded-lg px-4 py-3 text-sm text-gray-600 hover:bg-gray-50">
+            <a href="#account"
+                class="mt-1 block rounded-lg px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800">
                 👤 Account
             </a>
 
@@ -66,13 +79,13 @@
             {{-- Library Information --}}
             <x-ui.card id="library" class="p-6">
 
-                <div class="border-b border-gray-200 pb-5">
+                <div class="border-b border-gray-200 pb-5 dark:border-gray-700">
 
-                    <h3 class="font-semibold text-gray-900">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">
                         Library Information
                     </h3>
 
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Basic information about your library.
                     </p>
 
@@ -122,11 +135,11 @@
 
                 <div class="border-b border-gray-200 pb-5">
 
-                    <h3 class="font-semibold text-gray-900">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">
                         Borrowing Rules
                     </h3>
 
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Configure borrowing and overdue policies.
                     </p>
 
@@ -170,11 +183,11 @@
 
                 <div class="border-b border-gray-200 pb-5">
 
-                    <h3 class="font-semibold text-gray-900">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">
                         Account
                     </h3>
 
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Update your administrator account.
                     </p>
 
@@ -194,7 +207,7 @@
                 <div class="mt-6 flex justify-end">
 
                     <a href="{{ route('profile.index') }}"
-                        class="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
+                        class="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800">
                         Manage Account
                     </a>
 
@@ -203,6 +216,7 @@
             </x-ui.card>
 
         </div>
+
 
     </div>
 
