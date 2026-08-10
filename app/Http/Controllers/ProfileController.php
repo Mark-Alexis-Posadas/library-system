@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
@@ -36,7 +37,33 @@ class ProfileController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
+
+            'profile_image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Profile Image
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('profile_image')) {
+
+            // Delete old profile image
+            if ($user->profile_image) {
+                Storage::disk('public')->delete($user->profile_image);
+            }
+
+            // Store new profile image
+            $validated['profile_image'] = $request
+                ->file('profile_image')
+                ->store('profile-images', 'public');
+        }
 
         $user->update($validated);
 

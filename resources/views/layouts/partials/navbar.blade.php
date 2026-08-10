@@ -2,6 +2,7 @@
     <div class="flex h-16 items-center justify-between px-6">
 
 
+
         <div>
             <h1 class="text-lg font-semibold">
                 @yield('page-title', 'Dashboard')
@@ -14,18 +15,24 @@
                 🔔
             </button>
 
-            @auth <div class="relative" id="userMenu">
-
+            @auth
+                <div class="relative" id="userMenu">
 
                     {{-- User Button --}}
                     <button type="button" onclick="toggleUserMenu()"
                         class="flex items-center gap-3 rounded-xl px-2 py-1.5 transition hover:bg-gray-100">
 
-                        {{-- User Initial --}}
-                        <div
-                            class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                        </div>
+                        {{-- User Avatar --}}
+                        @if (auth()->user()->profile_image)
+                            <img src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                                alt="{{ auth()->user()->name }}"
+                                class="h-9 w-9 rounded-full object-cover ring-2 ring-white">
+                        @else
+                            <div
+                                class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </div>
+                        @endif
 
                         {{-- User Information --}}
                         <div class="hidden text-left sm:block">
@@ -58,10 +65,17 @@
 
                             <div class="flex items-center gap-3">
 
-                                <div
-                                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600">
-                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                                </div>
+                                {{-- Dropdown Avatar --}}
+                                @if (auth()->user()->profile_image)
+                                    <img src="{{ asset('storage/' . auth()->user()->profile_image) }}"
+                                        alt="{{ auth()->user()->name }}"
+                                        class="h-10 w-10 shrink-0 rounded-full object-cover">
+                                @else
+                                    <div
+                                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600">
+                                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                                    </div>
+                                @endif
 
                                 <div class="min-w-0">
 
@@ -118,9 +132,8 @@
                     </div>
 
                 </div>
-
-
             @endauth
+
 
             <script>
                 function toggleUserMenu() {
@@ -174,8 +187,8 @@
                 });
             </script>
 
-
         </div>
+
 
 
     </div>
