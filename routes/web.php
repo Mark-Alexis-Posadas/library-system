@@ -89,15 +89,6 @@ Route::get('/reports', [ReportController::class, 'index'])
     ->name('reports.index');
 
 
-/*
-|--------------------------------------------------------------------------
-| Settings
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/settings', [SettingController::class, 'index'])
-    ->name('settings.index');
-
 
 // Guest routes
 Route::middleware('guest')->group(function () {
@@ -116,13 +107,14 @@ Route::middleware('guest')->group(function () {
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
-
 
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 
+    // Profile
     Route::get('/profile', [ProfileController::class, 'index'])
         ->name('profile.index');
 
@@ -131,4 +123,14 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
         ->name('profile.password');
+
+    // Settings
+    Route::get('/settings', [SettingController::class, 'index'])
+        ->name('settings.index');
+
+    Route::put('/settings/library', [SettingController::class, 'updateLibrary'])
+        ->name('settings.library.update');
+
+    Route::put('/settings/borrowing', [SettingController::class, 'updateBorrowing'])
+        ->name('settings.borrowing.update');
 });
