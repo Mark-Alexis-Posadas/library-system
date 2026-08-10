@@ -6,12 +6,12 @@
 
     <div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-8">
         <div class="w-full max-w-md">
+
             {{-- Logo / Header --}}
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">
                     Library Management System
                 </h1>
-
 
                 <p class="mt-2 text-sm text-gray-600">
                     Create your account
@@ -46,8 +46,42 @@
                     </div>
                 @endif
 
-                <form action="{{ route('register.store') }}" method="POST" class="space-y-5">
+                <form action="{{ route('register.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
                     @csrf
+
+                    {{-- Profile Image --}}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">
+                            Profile Image
+                        </label>
+
+                        <div class="mt-2 flex items-center gap-4">
+                            {{-- Preview --}}
+                            <div id="image-preview"
+                                class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-gray-100">
+                                <svg class="h-10 w-10 text-gray-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.847.65 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+
+                            <div class="flex-1">
+                                <input type="file" id="profile_image" name="profile_image"
+                                    accept="image/jpeg,image/png,image/webp"
+                                    class="block w-full text-sm text-gray-500
+                                file:mr-3 file:rounded-lg file:border-0
+                                file:bg-indigo-50 file:px-4 file:py-2
+                                file:text-sm file:font-medium
+                                file:text-indigo-700
+                                hover:file:bg-indigo-100">
+
+                                <p class="mt-1.5 text-xs text-gray-500">
+                                    JPG, PNG, or WEBP. Max 2MB.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     {{-- Name --}}
                     <div>
@@ -108,6 +142,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
                         Already have an account?
+
                         <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-700">
                             Login here
                         </a>
@@ -115,7 +150,50 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+
+    {{-- Image Preview --}}
+    <script>
+        const profileImageInput = document.getElementById('profile_image');
+        const imagePreview = document.getElementById('image-preview');
+
+        profileImageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (!file) {
+                imagePreview.innerHTML = `
+                <svg
+                    class="h-10 w-10 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.847.65 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                </svg>
+            `;
+
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `
+                <img
+                    src="${e.target.result}"
+                    alt="Profile Preview"
+                    class="h-full w-full object-cover"
+                >
+            `;
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -52,11 +53,55 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email',
+            ],
+
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+            ],
+
+            'profile_image' => [
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048',
+            ],
         ]);
 
+        /*
+        |--------------------------------------------------------------------------
+        | Upload Profile Image
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('profile_image')) {
+            $validated['profile_image'] = $request
+                ->file('profile_image')
+                ->store('profile-images', 'public');
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create User
+        |--------------------------------------------------------------------------
+        */
+
         $user = User::create($validated);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Login User
+        |--------------------------------------------------------------------------
+        */
 
         Auth::login($user);
 
