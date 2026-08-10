@@ -1,18 +1,29 @@
-<header class="sticky top-0 z-30 border-b border-gray-200 bg-white">
+<header class="sticky top-0 z-30 border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
     <div class="flex h-16 items-center justify-between px-6">
 
 
-
         <div>
-            <h1 class="text-lg font-semibold">
+            <h1 class="text-lg font-semibold text-gray-900 dark:text-white">
                 @yield('page-title', 'Dashboard')
             </h1>
         </div>
 
         <div class="flex items-center gap-4">
 
-            <button class="rounded-lg p-2 hover:bg-gray-100">
-                🔔
+            <button type="button" onclick="toggleTheme()"
+                class="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                aria-label="Toggle dark mode">
+                {{-- Moon --}}
+                <svg id="moonIcon" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+                </svg>
+
+                {{-- Sun --}}
+                <svg id="sunIcon" class="hidden h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M18.72 18.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M18.72 5.28l1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z" />
+                </svg>
             </button>
 
             @auth
@@ -20,16 +31,16 @@
 
                     {{-- User Button --}}
                     <button type="button" onclick="toggleUserMenu()"
-                        class="flex items-center gap-3 rounded-xl px-2 py-1.5 transition hover:bg-gray-100">
+                        class="flex items-center gap-3 rounded-xl px-2 py-1.5 transition hover:bg-gray-100 dark:hover:bg-gray-800">
 
                         {{-- User Avatar --}}
                         @if (auth()->user()->profile_image)
                             <img src="{{ asset('storage/' . auth()->user()->profile_image) }}"
                                 alt="{{ auth()->user()->name }}"
-                                class="h-9 w-9 rounded-full object-cover ring-2 ring-white">
+                                class="h-9 w-9 rounded-full object-cover ring-2 ring-white dark:ring-gray-700">
                         @else
                             <div
-                                class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600">
+                                class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-300">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
                         @endif
@@ -37,18 +48,19 @@
                         {{-- User Information --}}
                         <div class="hidden text-left sm:block">
 
-                            <p class="text-sm font-semibold text-gray-900">
+                            <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">
                                 {{ auth()->user()->name }}
                             </p>
 
-                            <p class="text-xs text-gray-500">
+                            <p class="text-xs text-gray-500 dark:text-gray-400">
                                 {{ auth()->user()->email }}
                             </p>
 
                         </div>
 
                         {{-- Chevron --}}
-                        <svg id="userMenuChevron" class="hidden h-4 w-4 text-gray-400 transition-transform sm:block"
+                        <svg id="userMenuChevron"
+                            class="hidden h-4 w-4 text-gray-400 transition-transform sm:block dark:text-gray-500"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
                         </svg>
@@ -58,10 +70,10 @@
 
                     {{-- Dropdown --}}
                     <div id="userDropdown"
-                        class="absolute right-0 top-full z-50 mt-2 hidden w-64 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+                        class="absolute right-0 top-full z-50 mt-2 hidden w-64 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
 
                         {{-- User Info --}}
-                        <div class="border-b border-gray-100 px-4 py-4">
+                        <div class="border-b border-gray-100 px-4 py-4 dark:border-gray-700">
 
                             <div class="flex items-center gap-3">
 
@@ -72,18 +84,18 @@
                                         class="h-10 w-10 shrink-0 rounded-full object-cover">
                                 @else
                                     <div
-                                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600">
+                                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-300">
                                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                     </div>
                                 @endif
 
                                 <div class="min-w-0">
 
-                                    <p class="truncate text-sm font-semibold text-gray-900">
+                                    <p class="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">
                                         {{ auth()->user()->name }}
                                     </p>
 
-                                    <p class="truncate text-xs text-gray-500">
+                                    <p class="truncate text-xs text-gray-500 dark:text-gray-400">
                                         {{ auth()->user()->email }}
                                     </p>
 
@@ -99,8 +111,9 @@
 
                             {{-- Profile --}}
                             <a href="{{ route('profile.index') }}"
-                                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-700 transition hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700">
+                                <svg class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a8.25 8.25 0 0 1 15 0" />
                                 </svg>
@@ -114,7 +127,7 @@
                                 @csrf
 
                                 <button type="submit"
-                                    class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50">
+                                    class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:hover:bg-red-950/40">
 
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -188,8 +201,6 @@
             </script>
 
         </div>
-
-
 
     </div>
 

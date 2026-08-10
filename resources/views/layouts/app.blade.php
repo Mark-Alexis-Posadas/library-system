@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -17,6 +16,7 @@
     {{-- Optional: Tailwind Configuration --}}
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {}
             }
@@ -24,7 +24,7 @@
     </script>
 </head>
 
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-gray-50 text-gray-900 dark:border-gray-700 dark:bg-gray-900">
 
     <div class="min-h-screen">
 
@@ -44,8 +44,7 @@
         </div>
 
     </div>
-
+    <script src="{{ asset('js/theme/theme.js') }}"></script>
 </body>
 
 </html>
-
