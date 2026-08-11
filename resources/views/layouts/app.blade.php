@@ -45,6 +45,7 @@
 
     </div>
     <script src="{{ asset('js/theme/theme.js') }}"></script>
+
 </body>
 
 </html>
